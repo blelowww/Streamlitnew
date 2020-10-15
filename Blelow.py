@@ -28,19 +28,19 @@ DATA_URL5 = (
 )
 
 @st.cache(persist=True)
-def load_data(DATA_U):
-    data = pd.read_csv(DATA_U)
+def load_data(nrows,DATA_U):
+    data = pd.read_csv(DATA_U, nrows=nrows)
     lowercase = lambda x: str(x).lower()
     data.rename(lowercase, axis="columns", inplace=True)
     data[DATE_TIME] = pd.to_datetime(data[DATE_TIME])
     return data
 
-data1 = load_data(DATA_URL1)
+data1 = load_data(10000,DATA_URL1)
 # data = data[['latstartl','lonstartl','timestart','latstop','lonstop','timestop']]
-data2 = load_data(DATA_URL2)
-data3 = load_data(DATA_URL3)
-data4 = load_data(DATA_URL4)
-data5 = load_data(DATA_URL5)
+data2 = load_data(10000,DATA_URL2)
+data3 = load_data(10000,DATA_URL3)
+data4 = load_data(10000,DATA_URL4)
+data5 = load_data(10000,DATA_URL5)
 
 data = pd.concat([data1, data2,data3,data4,data5])
 data = data[['latstartl','lonstartl','timestart']]
@@ -105,7 +105,7 @@ midpoint = (np.average(data["latstartl"]), np.average(data["lonstartl"]))
 
 # with row1_3:
 st.write("**All Around City from %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
-map(data, latitude, longitude, 50)
+map(data, midpoint[0], midpoint[1], 12)
     
     
     
