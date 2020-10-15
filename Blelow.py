@@ -33,11 +33,11 @@ def load_data(nrows,DATA_U):
     data[DATE_TIME] = pd.to_datetime(data[DATE_TIME])
     return data
 
-data1 = load_data(100000,DATAURL1)
-data2 = load_data(100000,DATAURL2)
-data3 = load_data(100000,DATAURL3)
-data4 = load_data(100000,DATAURL4)
-data5 = load_data(100000,DATAURL5)
+data1 = load_data(100,DATAURL1)
+data2 = load_data(100,DATAURL2)
+data3 = load_data(100,DATAURL3)
+data4 = load_data(100,DATAURL4)
+data5 = load_data(100,DATAURL5)
 
 data = pd.concat([data1, data2,data3,data4,data5])
 # CREATING FUNCTION FOR MAPS
