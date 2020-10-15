@@ -28,18 +28,18 @@ DATA_URL5 = (
 )
 
 @st.cache(persist=True)
-def load_data(nrows,DATA_U):
-    data = pd.read_csv(DATA_U, nrows=nrows)
+def load_data(DATA_U):
+    data = pd.read_csv(DATA_U)
     lowercase = lambda x: str(x).lower()
     data.rename(lowercase, axis="columns", inplace=True)
     data[DATE_TIME] = pd.to_datetime(data[DATE_TIME])
     return data
 
-data1 = load_data(10000,DATA_URL1)
-data2 = load_data(10000,DATA_URL2)
-data3 = load_data(10000,DATA_URL3)
-data4 = load_data(10000,DATA_URL4)
-data5 = load_data(10000,DATA_URL5)
+data1 = load_data(DATA_URL1)
+data2 = load_data(DATA_URL2)
+data3 = load_data(DATA_URL3)
+data4 = load_data(DATA_URL4)
+data5 = load_data(DATA_URL5)
 
 # CREATING FUNCTION FOR MAPS
 
