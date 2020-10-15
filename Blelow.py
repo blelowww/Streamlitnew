@@ -36,14 +36,11 @@ def load_data(nrows,DATA_U):
     return data
 
 data1 = load_data(10000,DATA_URL1)
-# data = data[['latstartl','lonstartl','timestart','latstop','lonstop','timestop']]
 data2 = load_data(10000,DATA_URL2)
 data3 = load_data(10000,DATA_URL3)
 data4 = load_data(10000,DATA_URL4)
 data5 = load_data(10000,DATA_URL5)
 
-data = pd.concat([data1, data2,data3,data4,data5])
-data = data[['latstartl','lonstartl','timestart']]
 # CREATING FUNCTION FOR MAPS
 
 def map(data, lat, lon, zoom):
@@ -74,7 +71,21 @@ row1_1, row1_2, row1_3 = st.beta_columns((1,1,1))
 with row1_1:
     st.title("Around the city")
     hour_selected = st.slider("Select hour to visualize", 0, 23)
-    
+with row1_2:
+    option = st.selectbox('Date',('2019/01/01', '2019/01/02', '2019/01/03','2019/01/04','2019/01/05'))
+    st.write('You selected:', option)
+    if option == '2019/01/01':
+        data = data1
+    elif option == '2019/01/02':
+        data = data2
+    elif option == '2019/01/03':
+        data = data3
+    elif option == '2019/01/04':
+        data = data4
+    else:
+        data = data5
+data = data[['latstartl','lonstartl','timestart']]
+
 # FILTERING DATA BY HOUR SELECTED
 data = data[data[DATE_TIME].dt.hour == hour_selected]
 # LAYING OUT THE MIDDLE SECTION OF THE APP WITH THE MAPS
@@ -95,7 +106,7 @@ for lat, lng, label in zip(latitudes, longitudes, labels):
     location = [lat, lng], 
     popup = label,
     icon = fo.Icon(color='red', icon='pin',icon_color='black',angle=35)).add_to(station_map)
-with row1_2:
+with row1_3:
     st.write(folium_static(station_map))
 
 
